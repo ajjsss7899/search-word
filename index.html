@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<title>타이틀</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js" integrity="sha256-eTyxS0rkjpLEo16uXTS0uVCS4815lc40K2iVpWDvdSY=" crossorigin="anonymous"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="swiper.min.css">
+<script src="swiper.js"></script>
+
+<style>
+* {margin: 0;padding: 0;box-sizing: border-box;font-family: 'Noto Sans KR', sans-serif;box-sizing: border-box;}
+ul,ol,li {list-style: none;}
+
+.ui-helper-hidden-accessible {display: none;}
+.search input[type="text"] {}
+</style>
+</head>
+<body>
+<div class="search">
+    <form>
+        <input type="text" placeholder="검색 입력" class="input">
+        <input type="submit">
+    </form>
+</div>
+
+
+<script>
+
+$(function(){
+    var data = ['테스트 강의1', '테스트 강의2', '테스트 강의3', '키워드 1', '키워드 2'];
+    $(".input").autocomplete({
+        source: data,
+        delay: 100, //자동 완성 지연 시간
+        position: {my: "left top-1"},
+        //하이라이트 추가
+        open: function (e, ui) {
+            var acData = $(this).data('ui-autocomplete');
+            acData.menu.element.find('li').each(function () {
+                var me = $(this);
+                var keywords = acData.term
+                me.html(me.text().replace(new RegExp("(" + keywords + ")", "gi"), '<strong class="highlight">$1</strong>'));
+            });
+        }
+    });
+});
+
+</script>
+</body>
+</html>
